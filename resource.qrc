@@ -1,0 +1,10 @@
+<RCC>
+    <qresource prefix="/">
+        <file>pictrues/add.png</file>
+        <file>pictrues/start.png</file>
+        <file>pictrues/stop.png</file>
+        <file>pictrues/next.png</file>
+        <file>pictrues/private.png</file>
+        <file>pictrues/empty_vioce.png</file>
+    </qresource>
+</RCC>
