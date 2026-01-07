@@ -6,5 +6,6 @@
         <file>pictrues/next.png</file>
         <file>pictrues/private.png</file>
         <file>pictrues/empty_vioce.png</file>
+        <file>pictrues/del.png</file>
     </qresource>
 </RCC>

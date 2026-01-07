@@ -121,6 +121,16 @@
          <property name="text">
           <string/>
          </property>
+         <property name="icon">
+          <iconset resource="resource.qrc">
+           <normaloff>:/pictrues/del.png</normaloff>:/pictrues/del.png</iconset>
+         </property>
+         <property name="iconSize">
+          <size>
+           <width>35</width>
+           <height>35</height>
+          </size>
+         </property>
          <property name="flat">
           <bool>true</bool>
          </property>
@@ -161,7 +171,7 @@
        <x>0</x>
        <y>0</y>
        <width>1165</width>
-       <height>580</height>
+       <height>570</height>
       </rect>
      </property>
      <property name="styleSheet">
@@ -356,7 +366,7 @@
         <widget class="QPushButton" name="speed_button">
          <property name="minimumSize">
           <size>
-           <width>100</width>
+           <width>80</width>
            <height>80</height>
           </size>
          </property>
@@ -372,10 +382,35 @@
           <string notr="true">color: rgb(255, 255, 255);</string>
          </property>
          <property name="text">
-          <string>1X</string>
+          <string/>
          </property>
          <property name="flat">
           <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QSlider" name="horizontalSlider">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="minimumSize">
+          <size>
+           <width>180</width>
+           <height>80</height>
+          </size>
+         </property>
+         <property name="maximum">
+          <number>300</number>
+         </property>
+         <property name="singleStep">
+          <number>1</number>
+         </property>
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
          </property>
         </widget>
        </item>
@@ -444,9 +479,9 @@ color: rgb(255, 255, 255);</string>
     <property name="geometry">
      <rect>
       <x>0</x>
-      <y>660</y>
+      <y>650</y>
       <width>1165</width>
-      <height>40</height>
+      <height>50</height>
      </rect>
     </property>
     <property name="styleSheet">
@@ -456,13 +491,13 @@ color: rgb(255, 255, 255);</string>
      <string/>
     </property>
    </widget>
-   <widget class="QSlider" name="seekSlider">
+   <widget class="SeekSlider" name="seekSlider">
     <property name="geometry">
      <rect>
       <x>0</x>
-      <y>660</y>
+      <y>650</y>
       <width>1165</width>
-      <height>40</height>
+      <height>50</height>
      </rect>
     </property>
     <property name="styleSheet">
@@ -514,6 +549,19 @@ QSlider::handle:horizontal:pressed {
      <enum>Qt::Horizontal</enum>
     </property>
    </widget>
+   <widget class="QListWidget" name="listWidget">
+    <property name="geometry">
+     <rect>
+      <x>1165</x>
+      <y>70</y>
+      <width>330</width>
+      <height>730</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(30, 30, 30);</string>
+    </property>
+   </widget>
    <zorder>set_label</zorder>
    <zorder>adjust_label</zorder>
    <zorder>set_widget</zorder>
@@ -522,8 +570,16 @@ QSlider::handle:horizontal:pressed {
    <zorder>statusLabel</zorder>
    <zorder>label_4</zorder>
    <zorder>seekSlider</zorder>
+   <zorder>listWidget</zorder>
   </widget>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>SeekSlider</class>
+   <extends>QSlider</extends>
+   <header>seekslider.h</header>
+  </customwidget>
+ </customwidgets>
  <resources>
   <include location="resource.qrc"/>
  </resources>

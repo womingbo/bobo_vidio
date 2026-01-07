@@ -11,6 +11,11 @@
 #include <QMutex>
 #include <QQueue>
 #include <QDateTime>
+#include <QtConcurrent>
+#include "videothread.h"
+#include "audiothread.h"
+#include "global_status.h"
+#include "videolistitem.h"
 
 extern "C" {
 #include <libavformat/avformat.h>
@@ -34,86 +39,89 @@ public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
-private slots:
+public:
+    void seekVideoRealTime(qint64 positionMs);
 
+    void addVideoToPlaylist(const QString &filename);
+
+private slots:
     void on_add_button_clicked();
 
     void on_start_button_clicked();
 
-    void onPlayTimerTimeout();
+    void UpadatButton(bool flag);
+
+    void UpadatStatus(QString time,double value);
+
+    void UpadatseekSlider(double value);
+
+    void on_speed_button_clicked();
+
+    void onSeekSliderPressed();
+
+    void onSeekSliderReleased();
+
+    void onSeekSliderMoved(int value);
+
+
+
+    void on_private_button_pressed();
+
+    void on_private_button_released();
+
+    void on_next_button_pressed();
+
+    void on_next_button_released();
+
+    void onVideoPlayRequested(const QString &filePath);
+
+    void onVideoRemoveRequested(const QString &filePath);
+
+    void setstarting(const QString &filePath);
+
+
+    void on_del_button_pressed();
+
+    void on_del_button_released();
+
+    void on_horizontalSlider_valueChanged(int value);
+
+
+signals:
+    void init_video(QString filename);
+
+    void init_audio(QString filename);
+
+    void UpadatStatus();
+
+    void UpadatSpeed(float speed);
+
+    void UpadatSeekSlider(int,int);
+
+    void setVolume(float volume);
+
 
 private:
-
-    //播放状态
-    enum PlayerState {
-        STATE_IDLE,        // 空闲（未加载文件）
-        STATE_READY,       // 就绪（文件已加载，可播放）
-        STATE_PLAYING,     // 正在播放
-        STATE_PAUSED,      // 已暂停
-        STATE_ENDED        // 播放结束
-    };
-    PlayerState playerState = STATE_IDLE;
-
-    //其他参数
-    QString  currentVideoFile = nullptr;
-    int total_time = 0;
-
-
-
-    // 视频相关 - 明确以Video开头
-    AVFormatContext* videoFormatCtx = nullptr;  // 视频文件上下文
-    AVCodecContext* videoCodecCtx = nullptr;    // 视频解码器
-    AVFrame* videoFrameYUV = nullptr;           // YUV帧（解码后）
-    AVFrame* videoFrameRGB = nullptr;           // RGB帧（转换后）
-    SwsContext* videoSwsCtx = nullptr;          // 视频格式转换器
-    AVPacket* videoPacket = nullptr;            // 视频数据包
-    int videoStreamIndex = -1;                  // 视频流索引
-
-
-
-    // 音频相关 - 明确以Audio开头
-    AVFormatContext* audioFormatCtx = nullptr;  // 音频文件上下文
-    AVCodecContext* audioCodecCtx = nullptr;    // 音频解码器
-    int audioStreamIndex = -1;
-
-
-    // SDL相关
-    SDL_Window* sdlWindow = nullptr;
-    SDL_Renderer* sdlRenderer = nullptr;
-    SDL_Texture* sdlTexture = nullptr;
-
-    // 播放控制
-    QTimer *playTimer = nullptr;               // 视频播放定时器
-    QTimer* audioTimer = nullptr;               // 音频解码定时器
-
-
-    //ui
     Ui::MainWindow *ui;
 
 private:
-    void cleanup();
-    void cleanupSDL();
-    QString formatTime(qint64 seconds);
 
-    //查找 视频 音频流
-    int findVideoStream(AVFormatContext* formatCtx);
-    int findAudioStream(AVFormatContext* formatCtx);
+    VideoThread * video = nullptr;
+    QThread *t_video = nullptr;
+    AudioThread *audio = nullptr;
+    QThread *t_audio = nullptr;
+    float speed = 1.0f;
 
-    //初始化视频解码器
-    bool initVideoDecoder();
-    bool initSDLDisplay();
 
-    //显示视频信息
-    void showVideoInfo();
+    QString current_time = nullptr;
+    int time = 0;  //一次前进后退的时间间隔
+    int totall_time = 0;  //总时长
 
-    //视频的播放暂停
-    bool openVideoFile();
-    void startPlayback();
-    void pausePlayback();
-    void resumePlayback();
-    void restartPlayback();
-    void onPlayFinished();
-    void resetToBeginning();
+    QString currentPlayingFile = nullptr;
+    int currentPlayIndex = 0;
+
+
+
 
 };
 #endif // MAINWINDOW_H
