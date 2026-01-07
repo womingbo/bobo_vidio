@@ -161,7 +161,7 @@
        <x>0</x>
        <y>0</y>
        <width>1165</width>
-       <height>580</height>
+       <height>570</height>
       </rect>
      </property>
      <property name="styleSheet">
@@ -372,7 +372,7 @@
           <string notr="true">color: rgb(255, 255, 255);</string>
          </property>
          <property name="text">
-          <string>1X</string>
+          <string/>
          </property>
          <property name="flat">
           <bool>true</bool>
@@ -444,9 +444,9 @@ color: rgb(255, 255, 255);</string>
     <property name="geometry">
      <rect>
       <x>0</x>
-      <y>660</y>
+      <y>650</y>
       <width>1165</width>
-      <height>40</height>
+      <height>50</height>
      </rect>
     </property>
     <property name="styleSheet">
@@ -456,13 +456,13 @@ color: rgb(255, 255, 255);</string>
      <string/>
     </property>
    </widget>
-   <widget class="QSlider" name="seekSlider">
+   <widget class="SeekSlider" name="seekSlider">
     <property name="geometry">
      <rect>
       <x>0</x>
-      <y>660</y>
+      <y>650</y>
       <width>1165</width>
-      <height>40</height>
+      <height>50</height>
      </rect>
     </property>
     <property name="styleSheet">
@@ -524,6 +524,13 @@ QSlider::handle:horizontal:pressed {
    <zorder>seekSlider</zorder>
   </widget>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>SeekSlider</class>
+   <extends>QSlider</extends>
+   <header>seekslider.h</header>
+  </customwidget>
+ </customwidgets>
  <resources>
   <include location="resource.qrc"/>
  </resources>

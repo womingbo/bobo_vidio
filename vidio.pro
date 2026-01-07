@@ -1,4 +1,4 @@
-QT       += core gui
+QT       += core gui concurrent
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -18,8 +18,12 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 
 SOURCES += \
+    audiothread.cpp \
+    global_status.cpp \
     main.cpp \
-    mainwindow.cpp
+    mainwindow.cpp \
+    seekslider.cpp \
+    videothread.cpp
 
 win32 {
 INCLUDEPATH += $$PWD/include
@@ -40,7 +44,11 @@ LIBS += $$PWD/lib/avformat.lib   \
 
 
 HEADERS += \
-    mainwindow.h
+    audiothread.h \
+    global_status.h \
+    mainwindow.h \
+    seekslider.h \
+    videothread.h
 
 FORMS += \
     mainwindow.ui
